@@ -51,4 +51,8 @@ public class Hero extends Unit{
 
         this.intelligence = intelligence;
     }
+
+    public double getPowerLevel() {
+        return (strength * 2.50) + (agility * 1.25) + (intelligence * 2.00);
+    }
 }
