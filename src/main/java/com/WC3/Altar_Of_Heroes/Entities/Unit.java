@@ -18,6 +18,13 @@ public class Unit extends GameEntity{
 
     public int getDamage() { return damage; }
 
+    public void setDamage(int damage) {
+        if (damage < 0) {
+            throw new IllegalArgumentException("Damage cannot be negative!");
+        }
+        this.damage = damage;
+    }
+
     public void dealDamage(GameEntity inputTarget) {
         if(inputTarget == null) {
             throw new IllegalArgumentException("Target cannot be null!");

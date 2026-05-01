@@ -31,6 +31,13 @@ public abstract class GameEntity {
     public int getHealth() { return health; }
     public boolean isAlive() { return health > 0; }
 
+    public void setHealth(int health) {
+        if (health < 0) {
+            throw new IllegalArgumentException("Health cannot be negative!");
+        }
+        this.health = health;
+    }
+
     public void takeDamage(int damage) {
         if(damage < 0) {
             throw new IllegalArgumentException("Damage cannot be negative!");
