@@ -55,4 +55,12 @@ public class Hero extends Unit{
     public double getPowerLevel() {
         return (strength * 2.50) + (agility * 1.25) + (intelligence * 2.00);
     }
+
+    @Override
+    public void dealDamage(GameEntity inputTarget) {
+        double bonusDamage = getPowerLevel() * 0.1;
+        int totalDamage = (int)(getDamage() + bonusDamage);
+
+        inputTarget.takeDamage(totalDamage);
+    }
 }
