@@ -3,6 +3,7 @@ package com.WC3.Altar_Of_Heroes.Services;
 import com.WC3.Altar_Of_Heroes.Entities.Building;
 import com.WC3.Altar_Of_Heroes.Repositories.BuildingRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,11 +32,13 @@ public class BuildingCRUDService {
         inputBuildRepo.deleteById(inputIDKey);
     }
 
+    @Transactional
     public Building getBuildingByID(Long inputIDKey) {
         return inputBuildRepo.findById(inputIDKey)
                 .orElseThrow(() -> new IllegalArgumentException("Building not found!"));
     }
 
+    @Transactional
     public List<Building> getAllBuildings() {
         return inputBuildRepo.findAll();
     }

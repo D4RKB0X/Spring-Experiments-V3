@@ -49,4 +49,60 @@ public class CombatService {
         inputUnitRepo.save(inputAttacker);
         inputBuildRepo.save(inputTarget);
     }
+
+    public String fightUnits(Long unitAId, Long unitBId) {
+
+        Unit unitA = inputUnitRepo.findById(unitAId)
+                .orElseThrow(() -> new IllegalArgumentException("Unit A not found!"));
+
+        Unit unitB = inputUnitRepo.findById(unitBId)
+                .orElseThrow(() -> new IllegalArgumentException("Unit B not found!"));
+
+        if (!unitA.isAlive() || !unitB.isAlive()) {
+            throw new IllegalStateException("Both units must be alive to fight!");
+        }
+
+        StringBuilder battleLog = new StringBuilder();
+        battleLog.append("⚔️ Battle Start: ")
+                .append(unitA.getName())
+                .append(" vs ")
+                .append(unitB.getName())
+                .append("\n");
+
+        int round = 1;
+
+        while (unitA.isAlive() && unitB.isAlive()) {
+
+            battleLog.append("\n\n--- Round ").append(round++).append(" ---\n");
+
+            unitA.dealDamage(unitB);
+            battleLog.append(unitA.getName())
+                    .append(" hits ")
+                    .append(unitB.getName())
+                    .append(" | HP left: ")
+                    .append(unitB.getHealth())
+                    .append("\n");
+
+            if (!unitB.isAlive()) {
+                break;
+            }
+
+            unitB.dealDamage(unitA);
+            battleLog.append(unitB.getName())
+                    .append(" hits ")
+                    .append(unitA.getName())
+                    .append(" | HP left: ")
+                    .append(unitA.getHealth())
+                    .append("\n");
+        }
+
+        Unit winner = unitA.isAlive() ? unitA : unitB;
+
+        battleLog.append("\n🏆 Winner: ").append(winner.getName());
+
+        inputUnitRepo.save(unitA);
+        inputUnitRepo.save(unitB);
+
+        return battleLog.toString();
+    }
 }

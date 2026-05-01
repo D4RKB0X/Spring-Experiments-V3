@@ -1,5 +1,6 @@
 package com.WC3.Altar_Of_Heroes.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Entity
 public class Building extends GameEntity {
 
+    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "Building_ID")
     private Set<Unit> unitRoster = new HashSet<>();
