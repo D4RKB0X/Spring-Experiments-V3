@@ -1,9 +1,12 @@
 package com.WC3.Altar_Of_Heroes.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.validation.constraints.Min;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Unit extends GameEntity{
 
     @Min(value = 0, message = "Damage cannot be negative!")
@@ -17,7 +20,6 @@ public class Unit extends GameEntity{
     }
 
     public int getDamage() { return damage; }
-
     public void setDamage(int damage) {
         if (damage < 0) {
             throw new IllegalArgumentException("Damage cannot be negative!");

@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class Building extends GameEntity {
     protected Building() {}
 
     public Building(String name, int health) { super(name, health); }
-    public Set<Unit> getUnitRoster() { return Set.copyOf(unitRoster); }
+    public Set<Unit> getUnitRoster() { return Collections.unmodifiableSet(unitRoster); }
 
     public void addUnit(Unit inputUnit) {
         if(inputUnit == null) {
